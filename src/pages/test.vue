@@ -25,16 +25,15 @@
 	</Main>
 </template>
 
-<script setup>
+<script setup lang="ts">
 	import Main from '~/layouts/Main.vue';
 	import { onMounted, ref, watch } from 'vue';
 
-	const sticker = ref('')
-	const isAnimated = ref(false)
+	const sticker = ref<string>('')
+	const isAnimated = ref<boolean>(false)
+	const isCooldown = ref<boolean>(false)
 
-	const isCooldown = ref(false)
-
-	const triggerAnimation = () => {
+	const triggerAnimation = (): void => {
 		if (!isAnimated.value && !isCooldown.value) {
 			isAnimated.value = true
 			isCooldown.value = true
@@ -45,31 +44,33 @@
 		}
 	}
 
-	watch(isAnimated, (newVal) => {
+	watch(isAnimated, (newVal: boolean) => {
 		if (newVal) {
 			setTimeout(() => {
 				isAnimated.value = false
 			}, 5100)
 		}
-	}, { deep: true })
+	})
 
-	onMounted(async () => {
-		const geterLink = "https://cataas.com/cat"
-		const options = {
+	onMounted(async (): Promise<void> => {
+		const geterLink: string = "https://cataas.com/cat"
+		const options: RequestInit = {
 			method: "GET",
-			mode: "cors",
 			headers: {
 				"Content-Type": "application/json",
 				"Accept": "application/json",
 			},
 		}
+		
 		try {
-			const {
-				url
-			} = await fetch(geterLink, options)
-			if (url) sticker.value = url
-		} catch(e) {
-			console.log(e);
+			const response: Response = await fetch(geterLink, options)
+			if (response.ok) {
+				sticker.value = response.url
+			}
+			} catch(e: unknown) {
+			if (e instanceof Error) {
+				console.log(e.message)
+			}
 		}
 	})
 </script>
