@@ -9,5 +9,8 @@ export default defineNuxtConfig({
     plugins: [
       tailwindcss(),
     ],
+  },
+  nitro: {
+    preset: 'github-pages'
   }
 })

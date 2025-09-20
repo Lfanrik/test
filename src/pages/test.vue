@@ -73,18 +73,3 @@
 		}
 	})
 </script>
-
-<style scoped>
-	@keyframes catCome {
-		from {
-			transform: translateX(0);
-		}
-		to {
-			transform: translateX(-200px);
-		}
-	}
-
-	.cat-come {
-		animation: catCome 0.5s ease-in-out forwards;
-	}
-</style>
