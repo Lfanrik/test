@@ -1,4 +1,4 @@
-name: Deploy Nuxt from src folder
+name: Deploy Nuxt to GitHub Pages
 
 on:
   push:
@@ -22,15 +22,12 @@ jobs:
         with:
           node-version: '20'
           cache: 'pnpm'
-          cache-dependency-path: 'pnpm-lock.yaml'
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build Nuxt app
+      - name: Build
         run: pnpm run generate
-        env:
-          NODE_ENV: production
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
@@ -38,7 +35,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: ./dist
+          path: dist/
 
   deploy:
     environment:
