@@ -3,6 +3,8 @@
   "type": "module",
   "private": true,
   "scripts": {
+    "predeploy": "npm run generate",
+    "deploy": "gh-pages -d dist",
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
@@ -15,5 +17,8 @@
     "tailwindcss": "^4.1.13",
     "vue": "^3.5.21",
     "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }
